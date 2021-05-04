@@ -24,14 +24,15 @@ void main(void) {
 		printf("%2d: %2d\n", i, Current->Data);
 		Current = Current->NextNode;
 	}
-	printf("%2d: %2d\n", i, Current->Data);
+	printf("%2d: %2d\n\n\n", i, Current->Data);
 
-	//데이터 삭제
-	while (List != NULL) {
-		Current = List->NextNode;
-		free(List);
-		List = Current;
+	SLL_RemoveNodeIndex(&List, 6);
+
+	Current = List;
+	for (i = 0; Current->NextNode != NULL; i++) {
+		printf("%2d: %2d\n", i, Current->Data);
+		Current = Current->NextNode;
 	}
-	//초기화
-	Current = NULL, List = NULL;
+	printf("%2d: %2d\n", i, Current->Data);
+	SLL_DestroyAllNodes(&List);
 }
