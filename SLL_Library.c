@@ -11,24 +11,43 @@ Node* SLL_CreateNode(ElementType NewData) {
 	return NewNode;
 }
 
-//노드 인덱스로 접근후 삭제
-int SLL_RemoveNodeIndex(Node** Head, unsigned short Index) {
-	Node* Keep;
-	if (Index == 0) {
-		Keep = *Head;
-		*Head = (*Head)->NextNode;
-		free(Keep);
-		return 1;
-	}
-	Node* Current = *Head;
-	for (int i = 1; i < Index; i++) {
-		if (Current->NextNode->NextNode == NULL) return -1;
+//노드 색인
+Node* SLL_GetNodeAt(Node* Head, int Index) {
+	Node* Current = Head;
+	while (Current != NULL && (--Index) >= 0)
 		Current = Current->NextNode;
+
+	return Current;
+}
+
+//노드 주소로 삭제
+void SLL_RemoveNode(Node** Head, Node* Remove) {
+	if (*Head == Remove)
+		*Head = Remove->NextNode;
+	else {
+		Node* Current = *Head;
+		while (Current != NULL && Current->NextNode != Remove)
+			Current = Current->NextNode;
+		if (Current != NULL)
+			Current->NextNode = Remove->NextNode;
 	}
-	Keep = Current->NextNode;
-	Current->NextNode = Current->NextNode->NextNode;
-	free(Keep);
-	return 1;
+	free(Remove);
+}
+
+//노드 인덱스로 접근후 삭제
+void SLL_RemoveNodeIndex(Node** Head, int Index) {
+	Node* Remove = SLL_GetNodeAt(*Head, Index);
+	if (*Head == Remove) {
+		*Head = Remove->NextNode;
+	}
+	else {
+		Node* Current = *Head;
+		while (Current != NULL && Current->NextNode != Remove)
+			Current = Current->NextNode;
+		if(Current != NULL) 
+			Current->NextNode = Remove->NextNode;
+	}
+	free(Remove);
 }
 
 //노드를 리스트에 추가
@@ -56,6 +75,14 @@ void SLL_CreateNode2(Node** Head, ElementType NewData) {
 	SLL_AppendNode(Head, NewNode);
 }
 
+//노드 개수
+int SLL_GetNodeCount(Node* Head) {
+	int i;
+	for (i = 0; Head != NULL; i++)
+		Head = Head->NextNode;
+	return i;
+}
+
 //모든 노드 삭제
 void SLL_DestroyAllNodes(Node** Head) {
 	Node* Current;
@@ -67,3 +94,4 @@ void SLL_DestroyAllNodes(Node** Head) {
 	//초기화
 	Current = NULL, *Head = NULL;
 }
+

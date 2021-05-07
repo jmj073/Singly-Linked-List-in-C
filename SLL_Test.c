@@ -25,14 +25,17 @@ void main(void) {
 		Current = Current->NextNode;
 	}
 	printf("%2d: %2d\n\n\n", i, Current->Data);
-
+	//노드 총 개수
+	printf("!!!%d\n", SLL_GetNodeCount(List));
 	SLL_RemoveNodeIndex(&List, 6);
-
+	//데이터 출력
 	Current = List;
 	for (i = 0; Current->NextNode != NULL; i++) {
 		printf("%2d: %2d\n", i, Current->Data);
 		Current = Current->NextNode;
 	}
 	printf("%2d: %2d\n", i, Current->Data);
+	//노드 총 개수
+	printf("!!!%d\n", SLL_GetNodeCount(List));
 	SLL_DestroyAllNodes(&List);
 }
