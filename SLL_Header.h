@@ -22,6 +22,10 @@ void SLL_AppendNode(Node** Head, Node* NewNode);
 void SLL_CreateNode2(Node** Head, ElementType NewData);
 //노드 개수
 int SLL_GetNodeCount(Node* Head);
+//주소로 노드 삽입(뒤로)
+void SLL_InsertAfter(Node* Current, Node* NewNode);
+//주소로 노드 삽입(앞으로)
+void SLL_InsertBefore(Node** Head, Node* Current, Node* NewHead);
 //모든 노드 삭제
 void SLL_DestroyAllNodes(Node** Head);
 #endif

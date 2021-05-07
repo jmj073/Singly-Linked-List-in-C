@@ -64,6 +64,36 @@ void SLL_AppendNode(Node** Head, Node* NewNode) {
 	}
 }
 
+//노드 개수
+int SLL_GetNodeCount(Node* Head) {
+	int i;
+	for (i = 0; Head != NULL; i++)
+		Head = Head->NextNode;
+	return i;
+}
+
+//주소로 노드 삽입(헤드 제외)
+void SLL_InsertAfter(Node* Current, Node* NewNode) {
+	NewNode->NextNode = Current->NextNode;
+	Current->NextNode = NewNode;
+}
+
+
+//주소로 노드 삽입(앞으로)
+void SLL_InsertBefore(Node** Head, Node* Current, Node* NewHead) {
+	if (*Head == Current) {
+		NewHead->NextNode = Current;
+		*Head = NewHead;
+	}
+	else {
+		Node* Keep = *Head;
+		while (Keep != NULL && Keep->NextNode != Current)
+			Keep = Keep->NextNode;
+		Keep->NextNode = NewHead;
+		NewHead->NextNode = Current;
+	}
+}
+
 // 노드 만들기와 추가
 void SLL_CreateNode2(Node** Head, ElementType NewData) {
 	//노드 생성
@@ -73,14 +103,6 @@ void SLL_CreateNode2(Node** Head, ElementType NewData) {
 	NewNode->NextNode = NULL;
 	//노드 추가
 	SLL_AppendNode(Head, NewNode);
-}
-
-//노드 개수
-int SLL_GetNodeCount(Node* Head) {
-	int i;
-	for (i = 0; Head != NULL; i++)
-		Head = Head->NextNode;
-	return i;
 }
 
 //모든 노드 삭제

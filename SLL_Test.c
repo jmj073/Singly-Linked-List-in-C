@@ -27,7 +27,10 @@ void main(void) {
 	printf("%2d: %2d\n\n\n", i, Current->Data);
 	//노드 총 개수
 	printf("!!!%d\n", SLL_GetNodeCount(List));
+	//노드 삭제
 	SLL_RemoveNodeIndex(&List, 6);
+	Current = SLL_GetNodeAt(List, 2);
+	SLL_InsertBefore(&List, Current, SLL_CreateNode(9999));
 	//데이터 출력
 	Current = List;
 	for (i = 0; Current->NextNode != NULL; i++) {
